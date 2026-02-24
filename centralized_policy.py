@@ -36,14 +36,6 @@ def delete_policy(base_url, access_token, policy_name):
 
 
 def create_policy(base_url, access_token):
-    # # create_policy_request_body_mufg
-    # cluster = "banking-cluster-us2"
-    # cluster_uuid = "8b0d0561-993a-45a7-a511-cad5651e7502"
-    #
-    # # get namespace uuid dynamically
-    # namespace = "nginx-trurisk-app"
-    # namespace_uuid = "d6a01904-7b8f-4980-9522-f842fe7b542d"
-
     url = f"{base_url}/csapi/v1.3/centralizedPolicy"
     headers = {'Authorization': f'Bearer {access_token}'}
     response = requests.post(url, headers=headers, json=create_policy_request_body_mufg,verify=False)
