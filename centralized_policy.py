@@ -2,10 +2,10 @@ import requests
 from request_body import create_policy_request_body_mufg
 
 
-def get_all_policies(base_url, access_token):
+def get_all_policies(base_url, access_token,):
     url = f"{base_url}/csapi/v1.3/centralizedPolicy"
     headers = {'Authorization': f'Bearer {access_token}'}
-    response = requests.get(url, headers=headers)
+    response = requests.get(url, headers=headers,verify=False)
     all_policies = response.json()
     assert response.status_code == 200, f"Policy retrieval failed with status code {response.status_code}."
     return all_policies
@@ -28,7 +28,7 @@ def delete_policy(base_url, access_token, policy_name):
     if policy_uuid:
         url = f"{base_url}/csapi/v1.3/centralizedPolicy/{policy_uuid}"
         headers = {'Authorization': f'Bearer {access_token}'}
-        response = requests.delete(url, headers=headers)
+        response = requests.delete(url, headers=headers,verify=False)
         if response.status_code == 200:
             print(f"Policy {policy_name} deleted successfully.")
         else:
@@ -46,7 +46,7 @@ def create_policy(base_url, access_token):
 
     url = f"{base_url}/csapi/v1.3/centralizedPolicy"
     headers = {'Authorization': f'Bearer {access_token}'}
-    response = requests.post(url, headers=headers, json=create_policy_request_body_mufg)
+    response = requests.post(url, headers=headers, json=create_policy_request_body_mufg,verify=False)
     assert response.status_code == 200, f"Policy creation failed with status code {response.status_code}."
 
 
@@ -55,5 +55,5 @@ def update_policy(base_url, access_token, policy_name, active):
     url = f"{base_url}/csapi/v1.3/centralizedPolicy/{policy_uuid}/mode"
     headers = {'Authorization': f'Bearer {access_token}'}
     payload = {"policyMode": "ACTIVE" if active else "INACTIVE"}
-    response = requests.put(url, headers=headers, json=payload)
+    response = requests.put(url, headers=headers, json=payload,verify=False)
     assert response.status_code == 200, f"Policy {policy_name} update failed with status code {response.status_code}."
